@@ -18,8 +18,7 @@ public class TopLevelActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new CharFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CharFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
