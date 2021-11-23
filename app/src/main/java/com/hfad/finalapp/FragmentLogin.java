@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ public class FragmentLogin extends Fragment {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    DBHelper DB;
+
     @Override
     public void onAttach(Context context){
         sharedPreferences = context.getSharedPreferences("usersFile", Context.MODE_PRIVATE);
@@ -40,21 +43,36 @@ public class FragmentLogin extends Fragment {
         btnLogin = view.findViewById(R.id.btnLogin);
         btnRegister = view.findViewById(R.id.btnRegister);
 
+        DB = new DBHelper(getActivity());
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 userName = etUserName.getText().toString();
                 pass = etPassword.getText().toString();
-                String uName, uPass;
-                uName = sharedPreferences.getString("userName", null);
-                uPass = sharedPreferences.getString("pass", null);
+//                String uName, uPass;
+//                uName = sharedPreferences.getString("userName", null);
+//                uPass = sharedPreferences.getString("pass", null);
+//
+//                if(userName.equals(uName) && pass.equals(uPass)){
+//                    Toast.makeText(getContext(), "Login", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(getActivity(), TopLevelActivity.class);
+//                    startActivity(intent);
+//                }else{
+//                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+//                }
 
-                if(userName.equals(uName) && pass.equals(uPass)){
-                    Toast.makeText(getContext(), "Login", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), TopLevelActivity.class);
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                if(TextUtils.isEmpty(userName) | TextUtils.isEmpty(pass))
+                    Toast.makeText(getActivity(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                else{
+                    Boolean checkUserPass = DB.checkUsernamePassword(userName, pass);
+                    if(checkUserPass){
+                        Toast.makeText(getActivity(), "Login successful", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity(), TopLevelActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(getActivity(), "Login Failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
