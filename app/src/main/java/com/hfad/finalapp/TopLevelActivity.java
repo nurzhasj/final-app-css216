@@ -2,10 +2,8 @@ package com.hfad.finalapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class TopLevelActivity extends AppCompatActivity {
@@ -18,7 +16,9 @@ public class TopLevelActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CharFragment()).commit();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new CharFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
