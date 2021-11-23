@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class CharFragment extends Fragment {
     RecyclerView recyclerView;
     List<Movie> movieList;
     Adapter adapter;
+    TextView char_list_size;
 
     @Nullable
     @Override
@@ -42,6 +45,7 @@ public class CharFragment extends Fragment {
         recyclerView = getView().findViewById(R.id.recyclerView);
         movieList = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        char_list_size = getView().findViewById(R.id.char_list_size);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://run.mocky.io/")
@@ -61,6 +65,8 @@ public class CharFragment extends Fragment {
                 movieList = response.body();
                 adapter = new Adapter(getActivity(), movieList);
                 recyclerView.setAdapter(adapter);
+                int size = adapter.getItemCount();
+                char_list_size.setText("List of your characters (" + size + ")");
             }
 
             @Override

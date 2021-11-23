@@ -34,9 +34,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.id.setText(movieList.get(position).getId()+"");
+        holder.id.setText(movieList.get(position).getBirthday()+"");
         holder.title.setText(movieList.get(position).getName()+"");
-
+        holder.status.setText(movieList.get(position).getStatus()+"");
         Glide.with(mContext)
                 .load(movieList.get(position).getImg())
                 .into(holder.img);
@@ -52,6 +52,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView title;
         TextView id;
+        TextView status;
         ImageView img;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -59,6 +60,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
             title = itemView.findViewById(R.id.text_title);
             id = itemView.findViewById(R.id.text_id);
+            status = itemView.findViewById(R.id.text_status);
             img = itemView.findViewById(R.id.imgView);
         }
     }
