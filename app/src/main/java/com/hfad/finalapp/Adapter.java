@@ -1,6 +1,10 @@
 package com.hfad.finalapp;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -41,6 +46,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
                 .load(movieList.get(position).getImg())
                 .into(holder.img);
 
+        holder.cardView.setOnClickListener((view) -> {
+            Intent intent = new Intent(mContext, CharDetailsActivity.class);
+            intent.putExtra("image_url", movieList.get(position).getImg());
+            intent.putExtra("char_name", movieList.get(position).getName());
+            intent.putExtra("char_birthday", movieList.get(position).getBirthday());
+            intent.putExtra("char_occupation", movieList.get(position).getOccupation());
+            intent.putExtra("char_nickName", movieList.get(position).getNickname());
+            mContext.startActivity(intent);
+        });
+
     }
 
     @Override
@@ -54,6 +69,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         TextView id;
         TextView status;
         ImageView img;
+        CardView cardView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -62,6 +78,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             id = itemView.findViewById(R.id.text_id);
             status = itemView.findViewById(R.id.text_status);
             img = itemView.findViewById(R.id.imgView);
+
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
 }
