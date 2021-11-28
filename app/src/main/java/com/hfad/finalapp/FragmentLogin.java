@@ -50,17 +50,6 @@ public class FragmentLogin extends Fragment {
             public void onClick(View v){
                 userName = etUserName.getText().toString();
                 pass = etPassword.getText().toString();
-//                String uName, uPass;
-//                uName = sharedPreferences.getString("userName", null);
-//                uPass = sharedPreferences.getString("pass", null);
-//
-//                if(userName.equals(uName) && pass.equals(uPass)){
-//                    Toast.makeText(getContext(), "Login", Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(getActivity(), TopLevelActivity.class);
-//                    startActivity(intent);
-//                }else{
-//                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-//                }
 
                 if(TextUtils.isEmpty(userName) | TextUtils.isEmpty(pass))
                     Toast.makeText(getActivity(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();

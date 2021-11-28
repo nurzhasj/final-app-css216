@@ -19,7 +19,7 @@
             android:layout_marginTop="52dp"
             android:text="TextView"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/cardViewCorners"
             app:layout_constraintTop_toTopOf="parent" />

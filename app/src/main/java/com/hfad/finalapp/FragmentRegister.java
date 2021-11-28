@@ -54,12 +54,6 @@ public class FragmentRegister extends Fragment {
                 email = etEmail.getText().toString();
                 pass = etPassword.getText().toString();
 
-//                editor.putString("userName", userName);
-//                editor.putString("pass", pass);
-//                editor.putString("email", email);
-//                editor.apply();
-//                Toast.makeText(getContext(), "Registered", Toast.LENGTH_SHORT).show();
-
                 if(TextUtils.isEmpty(userName) || TextUtils.isEmpty(email) || TextUtils.isEmpty(pass))
                     Toast.makeText(getActivity(), "Fields cannot be empty!", Toast.LENGTH_SHORT).show();
                 else{
