@@ -33,6 +33,10 @@ public class TopLevelActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_profile:
                             selectedFragment = new ProfileFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("LoggedUser", getIntent().getStringExtra("LoggedUsername"));
+                            bundle.putString("CurrentDate", getIntent().getStringExtra("CurrentDate"));
+                            selectedFragment.setArguments(bundle);
                             break;
                         case R.id.nav_settings:
                             selectedFragment = new SettingsFragment();

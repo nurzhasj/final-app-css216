@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Date;
+
 public class FragmentLogin extends Fragment {
     Button btnLogin, btnRegister;
     EditText etUserName, etPassword;
@@ -58,6 +60,8 @@ public class FragmentLogin extends Fragment {
                     if(checkUserPass){
                         Toast.makeText(getActivity(), "Login successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getActivity(), TopLevelActivity.class);
+                        intent.putExtra("LoggedUsername", userName);
+                        intent.putExtra("CurrentDate", new Date().toString());
                         startActivity(intent);
                     }else{
                         Toast.makeText(getActivity(), "Login Failed", Toast.LENGTH_SHORT).show();

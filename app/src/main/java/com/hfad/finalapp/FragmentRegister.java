@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Date;
+
 
 public class FragmentRegister extends Fragment {
 
@@ -63,6 +65,8 @@ public class FragmentRegister extends Fragment {
                         if(insert){
                             Toast.makeText(getActivity(), "Registered Successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getActivity(), TopLevelActivity.class);
+                            intent.putExtra("LoggedUsername", userName);
+                            intent.putExtra("CurrentDate", new Date().toString());
                             startActivity(intent);
                         }else{
                             Toast.makeText(getActivity(), "Registration failed!", Toast.LENGTH_SHORT).show();

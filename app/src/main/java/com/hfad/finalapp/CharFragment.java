@@ -1,6 +1,7 @@
 package com.hfad.finalapp;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,5 +74,14 @@ public class CharFragment extends Fragment {
 
             }
         });
+
+
+//
+//        ConstraintLayout parent = getView().findViewById(R.id.charConsLayout);
+//
+//        Bundle bundle = this.getArguments();
+//        String color = bundle.getString("randColor");
+//        parent.setBackgroundColor(Color.parseColor(color));
+
     }
 }
