@@ -75,13 +75,5 @@ public class CharFragment extends Fragment {
             }
         });
 
-
-//
-//        ConstraintLayout parent = getView().findViewById(R.id.charConsLayout);
-//
-//        Bundle bundle = this.getArguments();
-//        String color = bundle.getString("randColor");
-//        parent.setBackgroundColor(Color.parseColor(color));
-
     }
 }

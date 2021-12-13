@@ -61,7 +61,14 @@ public class FragmentLogin extends Fragment {
                         Toast.makeText(getActivity(), "Login successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getActivity(), TopLevelActivity.class);
                         intent.putExtra("LoggedUsername", userName);
-                        intent.putExtra("CurrentDate", new Date().toString());
+
+                        // Getting and setting formatted data
+                        Date d = new Date();
+                        String date = "";
+                        date += d.getDate() + ".";
+                        date += d.getMonth() + 1 + ".";
+                        date += (d.getYear() + 1900);
+                        intent.putExtra("CurrentDate", date);
                         startActivity(intent);
                     }else{
                         Toast.makeText(getActivity(), "Login Failed", Toast.LENGTH_SHORT).show();

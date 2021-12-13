@@ -34,5 +34,4 @@ public class ProfileFragment extends Fragment {
         currentDate.setText(currentDateString);
 
     }
-
 }
