@@ -36,6 +36,26 @@ public class FragmentRegister extends Fragment {
         super.onAttach(context);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        checkSession();
+    }
+
+    private void checkSession() {
+        //check if user is logged in
+        //if user is logged in --> move to mainActivity
+        SessionManagement sessionManagement = new SessionManagement(getActivity());
+        String username = sessionManagement.getSession();
+
+        if(!username.equals("")){
+            moveToMainActivity();
+        }
+        else{
+            //do nothing
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +69,13 @@ public class FragmentRegister extends Fragment {
 
         btnRegister = view.findViewById(R.id.btnRegister);
 
+
+//        if(!sharedPreferences.getString("username", "defValue").equals("defValue")){
+//            Intent intent = new Intent(getActivity(), TopLevelActivity.class);
+//            intent.putExtra("LoggedUsername", sharedPreferences.getString("username", "defValue"));
+//            startActivity(intent);
+//        }
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -56,16 +83,33 @@ public class FragmentRegister extends Fragment {
                 email = etEmail.getText().toString();
                 pass = etPassword.getText().toString();
 
+                editor.putString("username", userName);
+                editor.apply();
+
+                User user = new User(userName, email, pass);
+
+
+                String noWhiteSpace = "^[^\\d\\s]+$";
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 if(TextUtils.isEmpty(userName) || TextUtils.isEmpty(email) || TextUtils.isEmpty(pass))
                     Toast.makeText(getActivity(), "Fields cannot be empty!", Toast.LENGTH_SHORT).show();
+                else if(!userName.matches(noWhiteSpace)){
+                    Toast.makeText(getActivity(),  "Username can't contain a space!", Toast.LENGTH_SHORT).show();
+                }else if(!email.matches(emailPattern)){
+                    Toast.makeText(getActivity(), "Invalid email! example -> test@gmail.com", Toast.LENGTH_SHORT).show();
+                }else if(pass.length() < 8){
+                    Toast.makeText(getActivity(), "Password length must be at least 8!", Toast.LENGTH_SHORT).show();
+                }
                 else{
                     Boolean checkUser = DB.checkUsername(userName);
                     if(!checkUser){
                         Boolean insert = DB.insertData(userName, email, pass);
                         if(insert){
                             Toast.makeText(getActivity(), "Registered Successfully", Toast.LENGTH_SHORT).show();
+                            SessionManagement sessionManagement = new SessionManagement(getActivity());
+                            sessionManagement.saveSession(user);
                             Intent intent = new Intent(getActivity(), TopLevelActivity.class);
-                            intent.putExtra("LoggedUsername", userName);
+                            intent.putExtra("LoggedUsername", sharedPreferences.getString("username", "defValue"));
                             // Getting and setting formatted data
                             Date d = new Date();
                             String date = "";
@@ -86,5 +130,11 @@ public class FragmentRegister extends Fragment {
         });
 
         return view;
+    }
+
+    private void moveToMainActivity() {
+        Intent intent = new Intent(getActivity(), TopLevelActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

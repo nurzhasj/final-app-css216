@@ -18,4 +18,7 @@
     <color name="login_form_details_light">#1affffff</color>
     <color name="login_form_details_medium">#66ffffff</color>
 
+    <color name="forest">#84fab0</color>
+    <color name="sea">#a1c4fd</color>
+
 </resources>

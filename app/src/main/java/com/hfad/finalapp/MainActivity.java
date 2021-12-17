@@ -37,6 +37,14 @@ public class MainActivity extends AppCompatActivity implements CallbackFragment{
         fragmentTransaction.commit();
     }
 
+    public void replaceToLogin(){
+        Fragment fragment = new FragmentLogin();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+        fragmentTransaction.commit();
+    }
+
     @Override
     public void changeFragment() {
         replaceFragment();

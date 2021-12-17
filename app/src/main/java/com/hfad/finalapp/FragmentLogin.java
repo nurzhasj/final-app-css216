@@ -35,6 +35,23 @@ public class FragmentLogin extends Fragment {
         super.onAttach(context);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        checkSession();
+    }
+
+    private void checkSession() {
+        //check if user is logged in
+        //if user is logged in --> move to mainActivity
+        SessionManagement sessionManagement = new SessionManagement(getActivity());
+        String username = sessionManagement.getSession();
+
+        if(!username.equals("")){
+            moveToMainActivity();
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,11 +64,22 @@ public class FragmentLogin extends Fragment {
 
         DB = new DBHelper(getActivity());
 
+//        if(!sharedPreferences.getString("username", "defValue").equals("defValue")){
+//            Intent intent = new Intent(getActivity(), TopLevelActivity.class);
+//            intent.putExtra("LoggedUsername", sharedPreferences.getString("username", "defValue"));
+//            startActivity(intent);
+//        }
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 userName = etUserName.getText().toString();
                 pass = etPassword.getText().toString();
+
+                editor.putString("username", userName);
+                editor.apply();
+
+                User user = new User(userName,pass);
 
                 if(TextUtils.isEmpty(userName) | TextUtils.isEmpty(pass))
                     Toast.makeText(getActivity(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
@@ -59,8 +87,11 @@ public class FragmentLogin extends Fragment {
                     Boolean checkUserPass = DB.checkUsernamePassword(userName, pass);
                     if(checkUserPass){
                         Toast.makeText(getActivity(), "Login successful", Toast.LENGTH_SHORT).show();
+                        SessionManagement sessionManagement = new SessionManagement(getActivity());
+                        sessionManagement.saveSession(user);
                         Intent intent = new Intent(getActivity(), TopLevelActivity.class);
-                        intent.putExtra("LoggedUsername", userName);
+                        intent.putExtra("LoggedUsername", sharedPreferences.getString("username", "defValue"));
+
 
                         // Getting and setting formatted data
                         Date d = new Date();
@@ -91,5 +122,11 @@ public class FragmentLogin extends Fragment {
 
     public void setCallbackFragment(CallbackFragment callbackFragment){
         this.callbackFragment = callbackFragment;
+    }
+
+    private void moveToMainActivity() {
+        Intent intent = new Intent(getActivity(), TopLevelActivity.class);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
