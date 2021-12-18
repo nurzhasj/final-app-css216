@@ -22,34 +22,34 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewChangeBack"
+        android:id="@+id/cardViewPalette"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="120dp">
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="5dp"
+        android:padding="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardViewShare"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView1">
 
-        <LinearLayout
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
-                android:textColor="@color/black"
-                android:text="Change background"
-                android:drawableRight="@drawable/ic_baseline_chevron_right_24"
-                android:textSize="15sp" />
-        </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewLogout"
+            app:layout_constraintVertical_bias="0.057" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewShare"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/cardViewChangeBack"
+        app:layout_constraintTop_toBottomOf="@id/cardViewPalette"
         android:layout_marginTop="5dp">
 
         <LinearLayout
@@ -93,16 +93,8 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewLogout"
-        app:layout_constraintVertical_bias="0.057" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

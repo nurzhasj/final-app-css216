@@ -47,7 +47,12 @@ public class SettingsFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ColorItem clickedItem = (ColorItem) parent.getItemAtPosition(position);
                 String clickedColorName = clickedItem.getColorName();
-                Toast.makeText(getActivity(), clickedColorName + " selected", Toast.LENGTH_SHORT).show();
+                if(!clickedColorName.equals("Change background")){
+                    Toast.makeText(getActivity(), clickedColorName + " selected", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), TopLevelActivity.class);
+                    intent.putExtra("backColor", clickedColorName);
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -57,17 +62,8 @@ public class SettingsFragment extends Fragment {
         });
 
         CardView share = getView().findViewById(R.id.cardViewShare);
-        CardView change = getView().findViewById(R.id.cardViewChangeBack);
         CardView logout = getView().findViewById(R.id.cardViewLogout);
 
-        change.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), TopLevelActivity.class);
-                intent.putExtra("color", R.color.black);
-                startActivity(intent);
-            }
-        });
 
         share.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +90,10 @@ public class SettingsFragment extends Fragment {
 
     private void initList(){
         mColorList = new ArrayList<>();
+        mColorList.add(new ColorItem(R.drawable.ic_baseline_color_lens_24, "Change background"));
         mColorList.add(new ColorItem(R.drawable.grad_green,"Forest"));
         mColorList.add(new ColorItem(R.drawable.grad_blue,"Sea"));
-
+        mColorList.add(new ColorItem(R.drawable.grad_yellow, "Sun"));
+        mColorList.add(new ColorItem(R.drawable.grad_white, "Moon"));
     }
 }

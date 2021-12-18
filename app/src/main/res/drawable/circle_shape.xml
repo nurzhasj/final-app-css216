@@ -3,10 +3,12 @@
 
     android:shape="oval">
 
-    <solid android:color="@color/forest"></solid>
+    <solid android:color="@color/forest">
+    </solid>
+
 
     <size
-        android:height="30dp"
-        android:width="30dp"/>
+        android:height="1dp"
+        android:width="1dp"/>
 
 </shape>
