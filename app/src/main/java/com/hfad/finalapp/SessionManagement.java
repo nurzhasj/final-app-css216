@@ -15,21 +15,16 @@ public class SessionManagement {
     }
 
     public void saveSession(User user){
-        //save session of user whenever user is logged in
         String username = user.getName();
-
         editor.putString(SESSION_KEY,username).commit();
     }
 
     public String getSession(){
-        //return user id whose session is saved
         return sharedPreferences.getString(SESSION_KEY, "");
     }
 
     public void removeSession(){
         editor.clear();
         editor.apply();
-
-        editor.remove("currentColor").commit();
     }
 }

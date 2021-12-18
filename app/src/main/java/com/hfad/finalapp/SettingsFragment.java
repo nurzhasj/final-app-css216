@@ -61,7 +61,7 @@ public class SettingsFragment extends Fragment {
                 if(!clickedColorName.equals("Change background")){
                     Toast.makeText(getActivity(), clickedColorName + " selected", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), TopLevelActivity.class);
-                    intent.putExtra("backColor", clickedColorName);
+                    editor.remove("currentColor").commit();
                     editor.putString("currentColor", clickedColorName);
                     editor.apply();
                     startActivity(intent);
@@ -108,5 +108,6 @@ public class SettingsFragment extends Fragment {
         mColorList.add(new ColorItem(R.drawable.grad_blue,"Sea"));
         mColorList.add(new ColorItem(R.drawable.grad_yellow, "Sun"));
         mColorList.add(new ColorItem(R.drawable.grad_white, "Moon"));
+        mColorList.add(new ColorItem(R.color.white, "Default"));
     }
 }

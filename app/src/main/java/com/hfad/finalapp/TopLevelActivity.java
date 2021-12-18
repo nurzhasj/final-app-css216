@@ -31,27 +31,23 @@ public class TopLevelActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new CharFragment()).commit();
 
+        sharedPreferences = getSharedPreferences("usersFile", Context.MODE_PRIVATE);
 
-          FrameLayout frameLayout = findViewById(R.id.fragment_container);
+        FrameLayout frameLayout = findViewById(R.id.fragment_container);
 
-          sharedPreferences = getSharedPreferences("usersFile", Context.MODE_PRIVATE);
-          String defColor = sharedPreferences.getString("currentColor", "white");
+        String selectedColor = sharedPreferences.getString("currentColor", "White");
 
-          frameLayout.setBackgroundColor(getResources().getColor(R.color.white));
-
-          Intent intent = getIntent();
-          if(intent.hasExtra("backColor")){
-              String selectedColor = intent.getStringExtra("backColor");
-              if(selectedColor.equals("Forest")){
-                  frameLayout.setBackgroundResource(R.drawable.grad_green);
-              }else if(selectedColor.equals("Sea")){
-                  frameLayout.setBackgroundResource(R.drawable.grad_blue);
-              }else if(selectedColor.equals("Sun")){
-                  frameLayout.setBackgroundResource(R.drawable.grad_yellow);
-              }else if(selectedColor.equals("Moon")){
-                  frameLayout.setBackgroundResource(R.drawable.grad_white);
-              }
-          }
+        if(selectedColor.equals("Forest")){
+            frameLayout.setBackgroundResource(R.drawable.grad_green);
+        }else if(selectedColor.equals("Sea")){
+            frameLayout.setBackgroundResource(R.drawable.grad_blue);
+        }else if(selectedColor.equals("Sun")){
+            frameLayout.setBackgroundResource(R.drawable.grad_yellow);
+        }else if(selectedColor.equals("Moon")){
+            frameLayout.setBackgroundResource(R.drawable.grad_white);
+        }else if(selectedColor.equals("Default")){
+            frameLayout.setBackgroundResource(R.color.white);
+        }
 
     }
 
