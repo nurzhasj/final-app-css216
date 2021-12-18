@@ -1,6 +1,8 @@
 package com.hfad.finalapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,6 +27,15 @@ import java.util.ArrayList;
 public class SettingsFragment extends Fragment {
     private ArrayList<ColorItem> mColorList;
     private ColorAdapter mAdapter;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
+    @Override
+    public void onAttach(Context context){
+        sharedPreferences = context.getSharedPreferences("usersFile", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        super.onAttach(context);
+    }
 
     @Nullable
     @Override
@@ -51,6 +62,8 @@ public class SettingsFragment extends Fragment {
                     Toast.makeText(getActivity(), clickedColorName + " selected", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), TopLevelActivity.class);
                     intent.putExtra("backColor", clickedColorName);
+                    editor.putString("currentColor", clickedColorName);
+                    editor.apply();
                     startActivity(intent);
                 }
             }

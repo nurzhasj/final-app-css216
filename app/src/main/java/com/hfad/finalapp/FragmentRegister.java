@@ -69,13 +69,6 @@ public class FragmentRegister extends Fragment {
 
         btnRegister = view.findViewById(R.id.btnRegister);
 
-
-//        if(!sharedPreferences.getString("username", "defValue").equals("defValue")){
-//            Intent intent = new Intent(getActivity(), TopLevelActivity.class);
-//            intent.putExtra("LoggedUsername", sharedPreferences.getString("username", "defValue"));
-//            startActivity(intent);
-//        }
-
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -84,6 +77,12 @@ public class FragmentRegister extends Fragment {
                 pass = etPassword.getText().toString();
 
                 editor.putString("username", userName);
+                Date d = new Date();
+                String date = "";
+                date += d.getDate() + ".";
+                date += d.getMonth() + 1 + ".";
+                date += (d.getYear() + 1900);
+                editor.putString("date", date);
                 editor.apply();
 
                 User user = new User(userName, email, pass);
@@ -109,15 +108,6 @@ public class FragmentRegister extends Fragment {
                             SessionManagement sessionManagement = new SessionManagement(getActivity());
                             sessionManagement.saveSession(user);
                             Intent intent = new Intent(getActivity(), TopLevelActivity.class);
-                            intent.putExtra("LoggedUsername", sharedPreferences.getString("username", "defValue"));
-                            // Getting and setting formatted data
-                            Date d = new Date();
-                            String date = "";
-                            date += d.getDate() + ".";
-                            date += d.getMonth() + 1 + ".";
-                            date += (d.getYear() + 1900);
-
-                            intent.putExtra("CurrentDate", date);
                             startActivity(intent);
                         }else{
                             Toast.makeText(getActivity(), "Registration failed!", Toast.LENGTH_SHORT).show();

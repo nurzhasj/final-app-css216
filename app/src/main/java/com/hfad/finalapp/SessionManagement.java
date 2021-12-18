@@ -27,6 +27,9 @@ public class SessionManagement {
     }
 
     public void removeSession(){
-        editor.putString(SESSION_KEY,"").commit();
+        editor.clear();
+        editor.apply();
+
+        editor.remove("currentColor").commit();
     }
 }

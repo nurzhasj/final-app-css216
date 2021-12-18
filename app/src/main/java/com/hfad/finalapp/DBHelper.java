@@ -1,5 +1,6 @@
 package com.hfad.finalapp;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -70,6 +71,18 @@ public class DBHelper extends SQLiteOpenHelper {
             return true;
         else
             return false;
+    }
+
+    public User getUser(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(
+          "select * from users where username=?",
+                new String[]{username});
+
+        @SuppressLint("Range")
+        User user = new User(cursor.getString(cursor.getColumnIndex("username")), cursor.getString(cursor.getColumnIndex("password")));
+
+        return user;
     }
 
 

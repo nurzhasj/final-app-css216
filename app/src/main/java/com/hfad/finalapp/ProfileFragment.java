@@ -1,5 +1,7 @@
 package com.hfad.finalapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,9 @@ import androidx.fragment.app.Fragment;
 import org.w3c.dom.Text;
 
 public class ProfileFragment extends Fragment {
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -26,12 +31,10 @@ public class ProfileFragment extends Fragment {
         TextView profileHeader = getView().findViewById(R.id.userNameInCard);
         TextView currentDate = getView().findViewById(R.id.currentDate);
 
-        Bundle bundle = this.getArguments();
-        String userName = bundle.getString("LoggedUser");
-        String currentDateString = bundle.getString("CurrentDate");
+        sharedPreferences = getContext().getSharedPreferences("usersFile", Context.MODE_PRIVATE);
 
-        profileHeader.setText(userName);
-        currentDate.setText(currentDateString);
+        profileHeader.setText(sharedPreferences.getString("username", ""));
+        currentDate.setText(sharedPreferences.getString("date", ""));
 
     }
 }

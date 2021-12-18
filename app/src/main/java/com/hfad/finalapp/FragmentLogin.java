@@ -42,8 +42,6 @@ public class FragmentLogin extends Fragment {
     }
 
     private void checkSession() {
-        //check if user is logged in
-        //if user is logged in --> move to mainActivity
         SessionManagement sessionManagement = new SessionManagement(getActivity());
         String username = sessionManagement.getSession();
 
@@ -64,12 +62,6 @@ public class FragmentLogin extends Fragment {
 
         DB = new DBHelper(getActivity());
 
-//        if(!sharedPreferences.getString("username", "defValue").equals("defValue")){
-//            Intent intent = new Intent(getActivity(), TopLevelActivity.class);
-//            intent.putExtra("LoggedUsername", sharedPreferences.getString("username", "defValue"));
-//            startActivity(intent);
-//        }
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -77,6 +69,12 @@ public class FragmentLogin extends Fragment {
                 pass = etPassword.getText().toString();
 
                 editor.putString("username", userName);
+                Date d = new Date();
+                String date = "";
+                date += d.getDate() + ".";
+                date += d.getMonth() + 1 + ".";
+                date += (d.getYear() + 1900);
+                editor.putString("date", date);
                 editor.apply();
 
                 User user = new User(userName,pass);
@@ -90,16 +88,6 @@ public class FragmentLogin extends Fragment {
                         SessionManagement sessionManagement = new SessionManagement(getActivity());
                         sessionManagement.saveSession(user);
                         Intent intent = new Intent(getActivity(), TopLevelActivity.class);
-                        intent.putExtra("LoggedUsername", sharedPreferences.getString("username", "defValue"));
-
-
-                        // Getting and setting formatted data
-                        Date d = new Date();
-                        String date = "";
-                        date += d.getDate() + ".";
-                        date += d.getMonth() + 1 + ".";
-                        date += (d.getYear() + 1900);
-                        intent.putExtra("CurrentDate", date);
                         startActivity(intent);
                     }else{
                         Toast.makeText(getActivity(), "Login Failed", Toast.LENGTH_SHORT).show();
@@ -126,7 +114,6 @@ public class FragmentLogin extends Fragment {
 
     private void moveToMainActivity() {
         Intent intent = new Intent(getActivity(), TopLevelActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 }
